@@ -1,11 +1,12 @@
 from flask import Flask, request
+from flask_cors import CORS
 import os
 
 from APIS import APIRequest
 
 app = Flask(__name__)
 app._static_folder = os.path.abspath('APIS/')
-
+CORS(app)
 
 @app.route('/', methods=['GET'])
 def isUp():
