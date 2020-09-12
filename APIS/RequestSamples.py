@@ -1,9 +1,9 @@
 from APIS import APIRequest
 
-newAccount = APIRequest.WebServiceSafra(accountID='00711234511')
+newAccount = APIRequest.WebServiceSafra(accountid='00711234511')
 
 '''--------------------------------------------------- EXEMPLOS DE CHAMADA DAS APIS ---------------------------------------------------'''
-print(f'Dados da conta {newAccount.getAccountData()}')
+'''print(f'Dados da conta {newAccount.getAccountData()}')
 print(f'Saldos {newAccount.getBalances()}')
 print(f'Extrato {newAccount.getTransactions()}')
 print('Transferencia:', end= ' ')
@@ -19,5 +19,5 @@ print(newAccount.transfer(type="TEF",
                           },
                           amount="250.00",
                           currency="BRL"))
-print(f'Lista morning Call {newAccount.listMorningCalls("2020-07-09", "2020-07-14")}')
+print(f'Lista morning Call {newAccount.listMorningCalls("2020-07-09", "2020-07-14")}')'''
 #print(f'Contato de abertura de conta {newAccount.contactOpenAcc(name="Eric Evans Silva", email="eric.evans@ddd.com", phone="+5511911111111")}')
