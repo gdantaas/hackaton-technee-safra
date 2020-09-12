@@ -1,6 +1,5 @@
 import requests
 import json
-import datetime as dt
 
 
 class WebServiceSafra:
@@ -8,15 +7,17 @@ class WebServiceSafra:
     def __init__(self, client_id='70a973924bdd4defb211bfd1c0309771',
                  client_secret='51971ed5-9704-4757-924a-d3431a2ae60d', accountid='00711234522'):
         self.url = 'https://af3tqle6wgdocsdirzlfrq7w5m.apigateway.sa-saopaulo-1.oci.customer-oci.com/fiap-sandbox'
-        self.token = self.getToken(client_id, client_secret)
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.token = self.getToken()
         self.accountID = accountid
         assert self.verifyUp(), 'Service Unvailable. Try again later.'
 
-    def getToken(self, client_id, client_secret):
+    def getToken(self):
         from base64 import b64encode
 
         urlToken = 'https://idcs-902a944ff6854c5fbe94750e48d66be5.identity.oraclecloud.com/oauth2/v1/token'
-        token = b64encode(f'{client_id}:{client_secret}'.encode('utf-8')).decode('utf-8')
+        token = b64encode(f'{self.client_id}:{self.client_secret}'.encode('utf-8')).decode('utf-8')
         headers = {
             'authorization': f'Basic {token}',
             'content-type': 'application/x-www-form-urlencoded',
@@ -102,8 +103,4 @@ class WebServiceSafra:
         }
         resp = requests.request('GET', self.url + path, headers=headers)
         return resp.json()
-
-
-newAccount = WebServiceSafra()
-print(newAccount.listMorningCalls())
 

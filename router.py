@@ -14,6 +14,13 @@ def isUp():
     return session.verifyUp()
 
 
+@app.route('/token', methods=['POST'])
+def token():
+    """localhost:8080/token"""
+    session = APIRequest.WebServiceSafra()
+    return session.getToken()
+
+
 @app.route('/accountData/<accountid>', methods=['GET'])
 def accountData(accountid):
     """localhost:8080/accountData/00711234511"""
