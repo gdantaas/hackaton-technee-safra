@@ -131,20 +131,15 @@ def validLogin():
         return json.dumps(profile[0])
 
 
-@app.route('/transactionsdb', methods=['GET'])
-def transactionDB():
+@app.route('/transactionsdb/<account_id>', methods=['GET'])
+def transactionDB(account_id):
     """
-    localhost:8080/transactionsDB
-    body = {
-            "account_id": "1",
-            }
+    localhost:8080/transactionsDB/1
     """
     profile = list()
-
-    data = request.json
     base = getDbData.dbData()
     # User Data
-    ret = base.selectData('Transactions', f"account_id = {data['account_id']}")
+    ret = base.selectData('Transactions', f"account_id = {account_id}")
     if len(ret) == 0:
         return 'None'
     else:
