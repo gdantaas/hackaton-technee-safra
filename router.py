@@ -155,13 +155,32 @@ def transactionDB(customer_id):
             'transaction_receipt': x[6],
             'transaction_credit_debit_indicator': x[7],
             'transaction_currency': x[8],
-            'transaction_amount': int(x[9]),
+            'transaction_amount': float(x[9]),
             'transaction_description': x[10],
             'transaction_status': x[11]
         } for x in ret]
 
         return json.dumps(transactions)
 
+@app.route('/balancesdb/<customer_id>', methods=['GET'])
+def balancesDB(customer_id):
+    """
+    localhost:8080/balancesdb/57051951092
+    """
+    base = getDbData.dbData()
+
+    ret = base.selectData('[BankAccount]', f"Customer_id = '{customer_id}'",
+                          columns='Account_id, Account_currency, SUM([Account_balance_amount]) as Amount',
+                          group='Account_currency, Account_id')
+    if len(ret) == 0:
+        return 'None'
+    else:
+        balances = [{
+            'account_id': x[0],
+            'account_currency': x[1],
+            'account_amount': float(x[2])
+        } for x in ret]
+        return json.dumps(balances)
 
 if __name__ == '__main__':
     # Router(app)
