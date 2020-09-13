@@ -131,33 +131,36 @@ def validLogin():
         return json.dumps(profile[0])
 
 
-@app.route('/transactionsdb/<account_id>', methods=['GET'])
-def transactionDB(account_id):
+@app.route('/transactionsdb/<customer_id>', methods=['GET'])
+def transactionDB(customer_id):
     """
-    localhost:8080/transactionsDB/1
+    localhost:8080/transactionsDB/57051951092
     """
     profile = list()
     base = getDbData.dbData()
-    # User Data
-    ret = base.selectData('Transactions', f"account_id = {account_id}")
+
+    ret = base.selectData('Transactions trans', f"acc.Customer_id = {customer_id}",
+                          columns='acc.Customer_id, trans.*',
+                          join='INNER JOIN BankAccount acc ON acc.Account_id = trans.account_id')
     if len(ret) == 0:
         return 'None'
     else:
         transactions = [{
-            'transaction_id': x[0],
-            'account_id': x[1],
-            'transaction_booking_date': x[2],
-            'transaction_date': x[3],
-            'transaction_recipient_account': x[4],
-            'transaction_receipt': x[5],
-            'transaction_credit_debit_indicator': x[6],
-            'transaction_currency': x[7],
-            'transaction_amount': int(x[8]),
-            'transaction_description': x[9],
-            'transaction_status': x[10]
+            'customer_id': x[0],
+            'transaction_id': x[1],
+            'account_id': x[2],
+            'transaction_booking_date': x[3],
+            'transaction_date': x[4],
+            'transaction_recipient_account': x[5],
+            'transaction_receipt': x[6],
+            'transaction_credit_debit_indicator': x[7],
+            'transaction_currency': x[8],
+            'transaction_amount': int(x[9]),
+            'transaction_description': x[10],
+            'transaction_status': x[11]
         } for x in ret]
 
-        return json.dumps(transactions[0])
+        return json.dumps(transactions)
 
 
 if __name__ == '__main__':
