@@ -108,13 +108,15 @@ def validLogin():
             "pwd":"hsasyagsyag"
             }
     """
+    from hashlib import sha256
     token = APIRequest.WebServiceSafra().getToken()
     profile = list()
 
     data = request.json
+    pwd = sha256(bytes(data['pwd'], encoding='utf8')).hexdigest().upper()
     base = getDbData.dbData()
     # User Data
-    ret = base.selectData('AppAccount', f"customer_id = {data['id']} and customer_password_hash = '{data['pwd']}'")
+    ret = base.selectData('AppAccount', f"customer_id = {data['id']} and customer_password_hash = '{pwd}'")
     if len(ret) == 0:
         return 'Unauthorized'
     else:
