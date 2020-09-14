@@ -1,6 +1,6 @@
-## Safra Hub Frontend - Hackaton Technee Banco Safra  (Equipe 36)
+## Safra Hub Backend - Hackaton Technee Banco Safra  (Equipe 36)
 
-Neste repositório está disponível o back-end da plataforma **Safra Hub** desenvolvida para o Hackathon do Technee do Banco Safra.
+Neste repositório está disponível o backend da plataforma **Safra Hub** desenvolvida para o Hackathon do Technee do Banco Safra.
 
 ### Safra Hub
 > A segurança que você já conhece com o conforto que você precisava para gerir seu patrimônio e fazer transações de forma otimizada e totalmente integrada!
